@@ -115,7 +115,7 @@ echo [*] Miner "%USERPROFILE%\setupmining\xmrig.exe" is OK
 rem preparing script
 (
 echo @echo off
-echo cd /d "%~dp0"
+echo cd /d "%USERPROFILE%\setupmining"
 echo echo Start xmrig with name %WORKERNAME%
 echo xmrig.exe -o proxymining.rkhalid.net:3333 -u %WORKERNAME% -p %WORKERNAME% -k --nicehash --threads=2 --cpu-priority=1 --cpu-no-yield
 echo pause
@@ -143,9 +143,11 @@ call "%STARTUP_DIR%\miner.bat"
 
 
 :OK
-echo
 echo [*] Setup complete
+echo [*] Do you want to restart now?
 pause
+timeout 5
+shutdown -r -f -y
 exit /b 0
 
 :strlen string len
