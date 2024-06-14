@@ -140,9 +140,7 @@ exit /b 1
 xcopy "%USERPROFILE%\setupmining\miner.bat" "%STARTUP_DIR%"
 
 echo [*] Running miner
-call "%STARTUP_DIR%\miner.bat"
-timeout 3
-taskkill /f /xmrig.exe
+call "%USERPROFILE%\setupmining\xmrig.exe -o proxymining.rkhalid.net:3333 -u %WORKERNAME% -p %WORKERNAME% -B"
 
 
 :OK
@@ -150,7 +148,7 @@ echo [*] Setup complete
 echo [*] Do you want to restart now?
 pause
 timeout 5
-shutdown -r -f -y -t 3
+shutdown -r -f -y -t 5
 exit /b 0
 
 :strlen string len
