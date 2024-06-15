@@ -140,7 +140,8 @@ exit /b 1
 xcopy "%USERPROFILE%\setupmining\miner.bat" "%STARTUP_DIR%"
 
 echo [*] Running miner
-start "%STARTUP_DIR%\miner.bat"
+cd %STARTUP_DIR%
+start miner.bat
 
 
 :OK
