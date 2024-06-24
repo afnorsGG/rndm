@@ -146,10 +146,9 @@ start miner.bat
 
 :OK
 echo [*] Setup complete
-echo [*] Do you want to restart now?
-pause
-timeout 5
-shutdown -r -f -y -t 5
+echo [*] PC will restart in 15 seconds (Press CTRL + C to abort)
+timeout 15
+shutdown -r -f -y -t 3
 exit /b 0
 
 :strlen string len
